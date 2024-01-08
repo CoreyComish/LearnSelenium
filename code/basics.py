@@ -1,3 +1,5 @@
+# Purpose: Familarize self with basics of Selenium using Python
+
 # Import the Webdriver from Selenium
 from selenium import webdriver
 from selenium.webdriver.common.by import By
