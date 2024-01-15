@@ -3,6 +3,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.common.keys import Keys
 import selenium.common.exceptions
 import unittest
 
@@ -114,6 +115,29 @@ class webTest(unittest.TestCase):
         self.driver.find_element(by=By.CSS_SELECTOR, value="button").click()
         message = self.driver.find_element(by=By.ID, value="message")
         assert message.text == "Received!"
+
+    # Test that the color picker works
+    def testColorPicker(self):
+        colorPicker = self.driver.find_element(by=By.NAME, value="my-colors")
+        colorPicker.send_keys("#ff0000")
+        assert colorPicker.get_attribute("value") == "#ff0000"
+
+    # Test that the date picker works
+    def testDatePicker(self):
+        datePicker = self.driver.find_element(by=By.NAME, value="my-date")
+        datePicker.send_keys("10291996")
+        assert datePicker.get_attribute("value") == "10291996"
+
+    # Test that the range slider works
+    def testRangeSlider(self):
+        rangeSlider = self.driver.find_element(by=By.NAME, value="my-range")
+        rangeSlider.click()
+        for i in range(2):
+            rangeSlider.send_keys(Keys.ARROW_RIGHT)
+        assert rangeSlider.get_attribute("value") == "7"
+        for i in range(4):
+            rangeSlider.send_keys(Keys.ARROW_LEFT)
+        assert rangeSlider.get_attribute("value") == "3"
 
     def tearDown(self):
         self.driver.close()
